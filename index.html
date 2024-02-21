@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="theme-color" content="#ffffff">
+
+    <title>Live Cricket Score 🏏</title>
+    <meta name="description" content="Free online - Live Cricket Score." />
+    <link rel="shortcut icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABqklEQVQ4jZ2Tv0scURDHP7P7SGWh14mkuXJZEH8cgqUWcklAsLBbCEEJSprkD7hD/4BUISHEkMBBiivs5LhCwRQBuWgQji2vT7NeYeF7GxwLd7nl4knMwMDMfL8z876P94TMLt+8D0U0EggQSsAjwMvga8ChJAqxqjTG3m53AQTg4tXHDRH9ABj+zf6oytbEu5d78nvzcyiivx7QXBwy46XOi5z1jbM+Be+nqVfP8yzuD3FM6rzIs9YE1hqGvDf15cVunmdx7w5eYJw1pcGptC9CD4gBUuef5Ujq/BhAlTLIeFYuyfmTZgeYv+2nPt1a371P+Hm1WUPYydKf0lnePwVmh3hnlcO1uc7yvgJUDtdG8oy98kduK2KjeHI0fzCQINSXOk/vlXBUOaihAwnGWd8V5r1uhe1VIK52V6JW2D4FqHZX5lphuwEE7ooyaN7gjLMmKSwYL+pMnV+MA/6+g8RYa2Lg2RBQbj4+rll7uymLy3coiuXb5PdQVf7rKYvojAB8Lf3YUJUHfSYR3XqeLO5JXvk0dhKqSqQQoCO+s5AIxCLa2Lxc6ALcAPwS26XFskWbAAAAAElFTkSuQmCC" />
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" integrity="sha256-UDtbUHqpVVfXmdJcQVU/bfDEr9xldf3Dbd0ShD0Uf/Y=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.min.css" integrity="sha256-tZS42DPuYTXIRzSSTJS9gwKPv8+pglbBfNtJUNvdyW4=" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+            background: #9AECDB;
+            min-height: 100vh;
+            font-weight: 600;
+        }
+        .container {
+            max-width: 800px;
+            margin: 1px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Fira Code', monospace;
+        }
+        table {
+            width: 100%;
+            font-family: 'Fira Code', monospace;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #655bf3;
+            text-align: center; /* Center align text in table headers */
+        }
+        td {
+            background-color: #aeee5b; /* White background for table cells */
+        }
+        tbody tr:nth-child(even) td {
+            background-color: #f9f9f9; /* Light gray background for even rows */
+        }
+        .refresh-button {
+            font-family: 'Fira Code', monospace;
+            display: block;
+            margin: 20px auto;
+            background-color: #00D1B2; /* Bulma primary color */
+            color: white;
+        }
+        .refresh-button:hover {
+            background-color: #00876D; /* Bulma primary dark color */
+        }
+        /* Make table header and rows equally responsive */
+        @media screen and (max-width: 768px) {
+            table thead {
+                display: none; /* Hide thead on smaller screens */
+            }
+            tbody tr {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                /* margin-bottom: 10px;  Add space between rows */
+            }
+            td {
+                width: 100%;
+                display: block; /* Display td as block element */
+            }
+        }
+        .custom-toast {
+            font-size: 16px !important; /* Adjust font size */
+        }
+        .custom-icon {
+            font-size: 16px !important; /* Adjust icon size */
+        }
+        .custom-title {
+            font-size: 16px !important; /* Adjust title font size */
+        }
+        .custom-content {
+            font-size: 16px !important; /* Adjust content font size */
+        }
+    </style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.all.min.js" integrity="sha256-K0XOKX5m4YV+Pdp38DCufa9r0yyp15Y1EMIoML0xZqQ=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="container content">
+        <h1>Live Cricket Score</h1>
+        <table class="table is-bordered">
+            <thead>
+                <tr>
+                    <th>Match</th>
+                    <th>Score</th>
+                    <th>Run Rate</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+        <button id="refresh-button" class="button is-primary refresh-button" onclick="getData()">Refresh Score</button>
+    </div>
+    <script>
+        function showNotification(message, type) {
+            Swal.fire({
+                text: message,
+                icon: type,
+                position: 'bottom-right',
+                toast: true,
+                showConfirmButton: false,
+                timer: 3000,
+                customClass: {
+                    popup: 'custom-toast',
+                    icon: 'custom-icon',
+                    title: 'custom-title',
+                    content: 'custom-content'
+                }
+            });
+        }
+        
+        function fetchJSON() {
+            const refreshButton = document.getElementById('refresh-button');
+            refreshButton.textContent = 'Loading Data...';
+   
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (!id || !/^\d{5,10}$/.test(id)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Invalid ID',
+                    text: 'Please provide a valid ID between 5 and 10 digits.',
+                    confirmButtonText: 'OK'
+                });
+                document.getElementById('refresh-button').style.visibility = "hidden";
+                const tableBody = document.getElementById('table-body');
+                tableBody.innerHTML = '';
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td colspan="4">No data available - Enter a Valid Match ID</td>
+                `;
+                tableBody.appendChild(row);
+                return;
+            }
+            
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            const loadingRow = document.createElement('tr');
+            loadingRow.innerHTML = `
+                <td colspan="4">Loading...</td>
+            `;
+            tableBody.appendChild(loadingRow);
+            
+            fetch(`/api/score?id=${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    //console.log('Raw JSON response:', data);
+                    updateTable(data);
+                    refreshButton.textContent = 'Refresh Score';
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON data:', error);
+                    refreshButton.textContent = 'Refresh Score';
+                });
+        }
+        
+        function updateTable(data) {
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            const row = document.createElement('tr');
+            if (!data || Object.keys(data).length === 0 || data.livescore === "Data Not Found") {
+                document.getElementById('refresh-button').style.visibility = "hidden";
+                row.innerHTML = `
+                    <td colspan="4">${data.update || 'No data available'}</td>
+                `;
+                tableBody.appendChild(row);
+            } else {
+                row.innerHTML = `
+                    <td>${data.title || '-'}</td>
+                    <td>${data.livescore || '-'}</td>
+                    <td>${data.runrate || '-'}</td>
+                    <td>${data.update || '-'}</td>
+                `;
+                tableBody.appendChild(row);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', fetchJSON);
+        
+        function getData() {
+            fetchJSON();
+            showNotification('Refreshing data...', 'success');
+        }
+    
+        const wsProtocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+        const wsURL = wsProtocol + window.location.host;
+        const ws = new WebSocket(wsURL);
+        ws.onopen = function() {
+            console.log('Connected to WebSocket server');
+        };
+        ws.onmessage = function(event) {
+            console.log('Message from server:', event.data);
+            if (event.data === 'reload') {
+                showNotification('Refreshing data...', 'success');
+                fetchJSON();
+            } else {
+                showNotification(event.data, 'info');
+            }
+        };
+    </script>
+
+</body>
+</html>

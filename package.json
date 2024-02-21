@@ -1,0 +1,36 @@
+{
+  "name": "alexa-score",
+  "version": "1.0.0",
+  "description": "Get live Cricket Score Update by reloading the web page using Websocket and Alexa.",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "alexa",
+    "cricket"
+  ],
+  "author": "sanweb",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanwebinfo/alexa-score.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sanwebinfo/alexa-score/issues"
+  },
+  "homepage": "https://github.com/sanwebinfo/alexa-score#readme",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
