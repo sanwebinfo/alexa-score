@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="HandheldFriendly" content="True" />
     <meta name="theme-color" content="#ffffff">
-
     <title>Live Cricket Score 🏏</title>
     <meta name="description" content="Free online - Live Cricket Score." />
     <link rel="shortcut icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABqklEQVQ4jZ2Tv0scURDHP7P7SGWh14mkuXJZEH8cgqUWcklAsLBbCEEJSprkD7hD/4BUISHEkMBBiivs5LhCwRQBuWgQji2vT7NeYeF7GxwLd7nl4knMwMDMfL8z876P94TMLt+8D0U0EggQSsAjwMvga8ChJAqxqjTG3m53AQTg4tXHDRH9ABj+zf6oytbEu5d78nvzcyiivx7QXBwy46XOi5z1jbM+Be+nqVfP8yzuD3FM6rzIs9YE1hqGvDf15cVunmdx7w5eYJw1pcGptC9CD4gBUuef5Ujq/BhAlTLIeFYuyfmTZgeYv+2nPt1a371P+Hm1WUPYydKf0lnePwVmh3hnlcO1uc7yvgJUDtdG8oy98kduK2KjeHI0fzCQINSXOk/vlXBUOaihAwnGWd8V5r1uhe1VIK52V6JW2D4FqHZX5lphuwEE7ooyaN7gjLMmKSwYL+pMnV+MA/6+g8RYa2Lg2RBQbj4+rll7uymLy3coiuXb5PdQVf7rKYvojAB8Lf3YUJUHfSYR3XqeLO5JXvk0dhKqSqQQoCO+s5AIxCLa2Lxc6ALcAPwS26XFskWbAAAAAElFTkSuQmCC" />
-
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" integrity="sha256-UDtbUHqpVVfXmdJcQVU/bfDEr9xldf3Dbd0ShD0Uf/Y=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.min.css" integrity="sha256-tZS42DPuYTXIRzSSTJS9gwKPv8+pglbBfNtJUNvdyW4=" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
         body {
             font-family: 'Fira Code', monospace;
@@ -44,21 +40,6 @@
             border-radius: 8px;
             overflow: hidden;
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #655bf3;
-            text-align: center; /* Center align text in table headers */
-        }
-        td {
-            background-color: #aeee5b; /* White background for table cells */
-        }
-        tbody tr:nth-child(even) td {
-            background-color: #f9f9f9; /* Light gray background for even rows */
-        }
         .refresh-button {
             font-family: 'Fira Code', monospace;
             display: block;
@@ -68,23 +49,6 @@
         }
         .refresh-button:hover {
             background-color: #00876D; /* Bulma primary dark color */
-        }
-        /* Make table header and rows equally responsive */
-        @media screen and (max-width: 768px) {
-            table thead {
-                display: none; /* Hide thead on smaller screens */
-            }
-            tbody tr {
-                display: flex;
-                flex-direction: column;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                /* margin-bottom: 10px;  Add space between rows */
-            }
-            td {
-                width: 100%;
-                display: block; /* Display td as block element */
-            }
         }
         .custom-toast {
             font-size: 16px !important; /* Adjust font size */
@@ -98,28 +62,94 @@
         .custom-content {
             font-size: 16px !important; /* Adjust content font size */
         }
+        .table-score th, .table-score td {
+          font-size: 13px;
+        }
+        .table-score th {
+          font-size: 15px;
+          padding: 20px;
+        }
+        .table-score td {
+          font-size: 15px;
+          padding: 20px;
+        }
+        @media screen and (max-width: 600px) {
+          .table-score {
+            border: 0;
+          }
+          .table-score caption {
+            font-size: 14px;
+          }
+          .table-score thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+          }
+          .table-score tr {
+            display: block;
+            margin-bottom: 1px;
+          }
+          .table-score td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: 14px;
+            text-align: right;
+          }
+          .table-score td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: 700;
+            text-transform: uppercase;
+          }
+          .table-score td:last-child {
+            border-bottom: 0;
+          }
+        }
+        .table-score th {
+          overflow-wrap: break-word;
+        }
+        .table-score table {
+          border-collapse: collapse;
+          border-spacing: 50;
+          overflow-wrap: break-word;
+          border-collapse: collapse;
+          margin: 0.5em 0 2.5em;
+          width: 100%;
+          table-layout: fixed;
+          background-color: #75730433;
+        }
+        .table-score th, td {
+          text-align: left;
+          padding: 10px;
+        }
+        .table-score tr:nth-child(even) {
+          background-color: #07070733;
+        }
+        .table-score td:nth-child(even) {
+          background-color: #beae1733;
+        }
     </style>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.all.min.js" integrity="sha256-K0XOKX5m4YV+Pdp38DCufa9r0yyp15Y1EMIoML0xZqQ=" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.all.min.js" integrity="sha256-K0XOKX5m4YV+Pdp38DCufa9r0yyp15Y1EMIoML0xZqQ=" crossorigin="anonymous"></script>
 </head>
 <body>
+    <section class="section">
     <div class="container content">
-        <h1>Live Cricket Score</h1>
-        <table class="table is-bordered">
-            <thead>
-                <tr>
-                    <th>Match</th>
-                    <th>Score</th>
-                    <th>Run Rate</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
+        <h2 class="is-size-6 has-text-centered">Live Cricket Score</h2>
+        <br>
+        <div class="table-score">
+        <table class="table">
             <tbody id="table-body">
             </tbody>
         </table>
-        <button id="refresh-button" class="button is-primary refresh-button" onclick="getData()">Refresh Score</button>
+        </div>
+        <button id="refresh-button" class="button is-danger is-rounded refresh-button" onclick="getData()">Refresh Score</button>
     </div>
+    </section>
     <script>
         function showNotification(message, type) {
             Swal.fire({
@@ -200,13 +230,24 @@
                 `;
                 tableBody.appendChild(row);
             } else {
-                row.innerHTML = `
+                tableBody.innerHTML = `
+                    <th>Match</th>
                     <td>${data.title || '-'}</td>
+                    </tr>
+                    <tr>
+                    <th>Score</th>
                     <td>${data.livescore || '-'}</td>
+                    </tr>
+                    <tr>
+                    <th>Run Rate</th>
                     <td>${data.runrate || '-'}</td>
+                    </tr>
+                    <tr>
+                    <th>Status</th>
                     <td>${data.update || '-'}</td>
+                    </tr>
                 `;
-                tableBody.appendChild(row);
+                //tableBody.appendChild(row);
             }
         }
         
