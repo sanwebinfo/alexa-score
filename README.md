@@ -10,12 +10,18 @@ A Simple Static Site With Websocket for Getting Real-time Live Cricket Score Upd
 - Express JS for API and WebSocket Connection
 - Use WebSocket to trigger the static page Refresh in real-time
 - Using Tasker and Alexa to trigger a WebSocket server to send a message to the client  
+- Token based API - JWT token and Custom Header Key based Authorization
+- Create JWT Token for Authorize to Pass message to the Clients **(it will expired in 5mins - Due to security reasons using short-lived JWT tokens)**
+
+```sh
+curl --request GET   --url http://localhost:6007/api/token   --header 'x-api-key: YOUR_TOKEN_HERE
+```
 
 ```sh
 
 ## Use this at API Clients (it only accept the Request if the message contain 'reload')
 
-curl -X POST -H "Content-Type: application/json" -d '{"message": "reload"}' http://localhost:6007/api/message
+curl --request POST   --url http://localhost:6007/api/message   --header 'authorization: YOUR_JWT_TOKEN_HERE'   --header 'content-type: application/json'   --data '{"message": "reload"}'
 
 ```
 
@@ -27,7 +33,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"message": "reload"}' http
 ## if you passing the voice command 'reload' then it will reload the score data
 ## Rest voice commanding words will dislay as alert in the client page
 
-curl -X POST -H "Content-Type: application/json" -d '{"alexamessage": "HI from Alexa"}' http://localhost:6007/api/alexa
+curl -X POST -H "Content-Type: application/json" -H 'authorization: YOUR_JWT_TOKEN_HERE' -d '{"alexamessage": "HI from Alexa"}' http://localhost:6007/api/alexa
 
 ```
 
@@ -41,6 +47,10 @@ http://localhost:6007/api/score?id=123456
 
 ```env
 API=https://cricket.example.com/score?id=
+XAPIKEY=YOUR_TOKEN_HERE
+JWTKEY=your_secret_key
+USERID=123456
+USERNAME=exampleuser
 ```
 
 - Home page: `index.html` for displaying the Live Cricket Score

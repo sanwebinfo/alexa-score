@@ -3,17 +3,62 @@ const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
 const { body, query, validationResult } = require('express-validator');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 const port = process.env.PORT || 6007;
+const secretKey = process.env.JWTKEY;
 
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+
+const checkNonJWTAuthorization = (req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  if (!apiKey || apiKey !== process.env.XAPIKEY) {
+    return res.status(401).json({ error: 'Unauthorized: Invalid API Key' });
+  }
+  next();
+};
+
+const verifyToken = (req, res, next) => {
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized: No token provided' });
+  }
+try {
+    const decoded = jwt.verify(token, secretKey);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.error('Error verifying token');
+    return res.status(401).json({ error: 'Unauthorized: Invalid token' });
+  }
+};
+
+app.get('/api/token', checkNonJWTAuthorization, (req, res) => {
+
+  res.header('X-Frame-Options', 'DENY');
+  res.header('X-XSS-Protection', '1; mode=block');
+  res.header('X-Content-Type-Options', 'nosniff');
+  res.header('Strict-Transport-Security', 'max-age=63072000');
+
+  try {
+    const payload = {
+      userId: process.env.USERID,
+      username: process.env.USERNAME
+    };
+    const token = jwt.sign(payload, secretKey, { expiresIn: '5m' });
+    res.json({ token });
+  } catch (error) {
+    console.error('Error generating token');
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 app.get('/', (req, res) => {
   res.header('X-Frame-Options', 'DENY');
@@ -25,7 +70,6 @@ app.get('/', (req, res) => {
 
 wss.on('connection', (ws) => {
   //console.log('Client connected');
-
   ws.on('message', (message) => {
     console.log(`Received message: ${message}`);
   });
@@ -62,6 +106,7 @@ app.get('/api/score', [
 });
 
 app.post('/api/message',
+  verifyToken,
   body('message')
     .trim()
     .custom((value) => value === 'reload')
@@ -98,6 +143,7 @@ app.post('/api/message',
 );
 
 app.post('/api/alexa',
+  verifyToken,
   body('alexamessage')
     .trim()
     .notEmpty().withMessage('Alexa message cannot be empty')
