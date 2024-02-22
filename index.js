@@ -12,6 +12,10 @@ const wss = new WebSocket.Server({ server });
 const port = process.env.PORT || 6007;
 const secretKey = process.env.JWTKEY;
 
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.set('views', './view');
+
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
@@ -65,7 +69,19 @@ app.get('/', (req, res) => {
   res.header('X-XSS-Protection', '1; mode=block');
   res.header('X-Content-Type-Options', 'nosniff');
   res.header('Strict-Transport-Security', 'max-age=63072000');
-  res.sendFile(__dirname + '/index.html');
+
+  const current_page = 'https://' + req.headers.host + req.url;
+  const homepage = 'https://' + req.headers.host + '/';
+  const title = 'Live Cricket Score 🏏';
+  const description = 'Free online - Live Cricket Score 🏏.'
+
+  res.render('home', {
+    seourl: current_page || '/',
+    homepage: homepage,
+    title : title,
+    description : description
+  });
+
 });
 
 wss.on('connection', (ws) => {

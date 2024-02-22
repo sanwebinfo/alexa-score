@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="theme-color" content="#ffffff">
+    <title><%= title %></title>
+    <meta name="description" content="<%= description %>" />
+    <link rel="canonical" href="<%= seourl %>" />
+    <link rel="shortcut icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABqklEQVQ4jZ2Tv0scURDHP7P7SGWh14mkuXJZEH8cgqUWcklAsLBbCEEJSprkD7hD/4BUISHEkMBBiivs5LhCwRQBuWgQji2vT7NeYeF7GxwLd7nl4knMwMDMfL8z876P94TMLt+8D0U0EggQSsAjwMvga8ChJAqxqjTG3m53AQTg4tXHDRH9ABj+zf6oytbEu5d78nvzcyiivx7QXBwy46XOi5z1jbM+Be+nqVfP8yzuD3FM6rzIs9YE1hqGvDf15cVunmdx7w5eYJw1pcGptC9CD4gBUuef5Ujq/BhAlTLIeFYuyfmTZgeYv+2nPt1a371P+Hm1WUPYydKf0lnePwVmh3hnlcO1uc7yvgJUDtdG8oy98kduK2KjeHI0fzCQINSXOk/vlXBUOaihAwnGWd8V5r1uhe1VIK52V6JW2D4FqHZX5lphuwEE7ooyaN7gjLMmKSwYL+pMnV+MA/6+g8RYa2Lg2RBQbj4+rll7uymLy3coiuXb5PdQVf7rKYvojAB8Lf3YUJUHfSYR3XqeLO5JXvk0dhKqSqQQoCO+s5AIxCLa2Lxc6ALcAPwS26XFskWbAAAAAElFTkSuQmCC" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" integrity="sha256-UDtbUHqpVVfXmdJcQVU/bfDEr9xldf3Dbd0ShD0Uf/Y=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.min.css" integrity="sha256-tZS42DPuYTXIRzSSTJS9gwKPv8+pglbBfNtJUNvdyW4=" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+            background: #9AECDB;
+            min-height: 100vh;
+            font-weight: 600;
+        }
+        .container {
+            max-width: 800px;
+            margin: 1px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Fira Code', monospace;
+        }
+        table {
+            width: 100%;
+            font-family: 'Fira Code', monospace;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .refresh-button {
+            font-family: 'Fira Code', monospace;
+            display: block;
+            margin: 20px auto;
+            background-color: #00D1B2; /* Bulma primary color */
+            color: white;
+        }
+        .refresh-button:hover {
+            background-color: #00876D; /* Bulma primary dark color */
+        }
+        .custom-toast {
+            font-size: 16px !important; /* Adjust font size */
+        }
+        .custom-icon {
+            font-size: 16px !important; /* Adjust icon size */
+        }
+        .custom-title {
+            font-size: 16px !important; /* Adjust title font size */
+        }
+        .custom-content {
+            font-size: 16px !important; /* Adjust content font size */
+        }
+        .table-score th, .table-score td {
+            font-size: 13px;
+        }
+        .table-score th {
+            font-size: 15px;
+            padding: 20px;
+        }
+        .table-score td {
+            font-size: 15px;
+            padding: 20px;
+        }
+        @media screen and (max-width: 600px) {
+            .table-score {
+                border: 0;
+            }
+            .table-score caption {
+                font-size: 14px;
+            }
+            .table-score thead {
+                border: none;
+                clip: rect(0 0 0 0);
+                height: 1px;
+                margin: -1px;
+                overflow: hidden;
+                padding: 0;
+                position: absolute;
+                width: 1px;
+            }
+            .table-score tr {
+                display: block;
+                margin-bottom: 1px;
+            }
+            .table-score td {
+                border-bottom: 1px solid #ddd;
+                display: block;
+                font-size: 14px;
+                text-align: right;
+            }
+            .table-score td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+            .table-score td:last-child {
+                border-bottom: 0;
+            }
+        }
+        .table-score th {
+            overflow-wrap: break-word;
+        }
+        .table-score table {
+            border-collapse: collapse;
+            border-spacing: 50;
+            overflow-wrap: break-word;
+            border-collapse: collapse;
+            margin: 0.5em 0 2.5em;
+            width: 100%;
+            table-layout: fixed;
+            background-color: #75730433;
+        }
+        .table-score th, td {
+            text-align: left;
+            padding: 10px;
+        }
+        .table-score tr:nth-child(even) {
+            background-color: #07070733;
+        }
+        .table-score td:nth-child(even) {
+            background-color: #beae1733;
+        }
+        .read-random {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 13px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            border-radius: 32px;
+            padding: 10px;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-font-smoothing: antialiased !important;
+            -moz-font-smoothing: antialiased !important;
+            text-rendering: optimizelegibility !important;
+        }
+        footer {
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.all.min.js" integrity="sha256-K0XOKX5m4YV+Pdp38DCufa9r0yyp15Y1EMIoML0xZqQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+<section class="section">
+    <div class="container content">
+        <h2 class="is-size-6 has-text-centered">Live Cricket Score 🏏</h2>
+        <br>
+        <div class="table-score">
+            <table class="table">
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </div>
+        <div class="buttons is-centered"><button id="refresh-button" class="button is-danger is-rounded read-random" onclick="getData()">Refresh Score</button></div>
+    </div>
+</section>
+<section class="section">
+    <footer>
+        <h2 class="is-size-6 has-text-centered">Messaging Service Status 📳</h2>
+        <br>
+        <div class="buttons is-centered">
+            <button class="button is-warning is-rounded read-random" id="wsBtn">Connect WebSocket</button> <button class="button is-warning is-danger is-rounded read-random" id="disconnectButton">Disconnect</button>
+        </div>
+        <p id="statusText">Websocket Status: Offline</p>
+    </footer>
+</section>
+
+<script src="/app.js"></script>
+
+</body>
+</html>

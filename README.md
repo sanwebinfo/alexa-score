@@ -8,6 +8,7 @@ A Simple Static Site With Websocket for Getting Real-time Live Cricket Score Upd
 
 - Cricket API: <https://github.com/sanwebinfo/cricket-api>
 - Express JS for API and WebSocket Connection
+- EJS Template Engine
 - Use WebSocket to trigger the static page Refresh in real-time
 - Using Tasker and Alexa to trigger a WebSocket server to send a message to the client  
 - Token based API - JWT token and Custom Header Key based Authorization
