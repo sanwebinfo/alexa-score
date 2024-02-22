@@ -1,0 +1,213 @@
+body {
+	font-family: 'Fira Code', monospace;
+    background: #075e54;
+    color: #ffffff;
+	min-height: 100vh;
+	font-weight: 600;
+}
+
+.container {
+	max-width: 800px;
+	margin: 1px auto;
+	padding: 20px;
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: 20px;
+	font-family: 'Fira Code', monospace;
+}
+
+table {
+	width: 100%;
+	font-family: 'Fira Code', monospace;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.refresh-button {
+	font-family: 'Fira Code', monospace;
+	display: block;
+	margin: 20px auto;
+	background-color: #00D1B2;
+ /* Bulma primary color */
+	color: white;
+}
+
+.refresh-button:hover {
+	background-color: #00876D;
+ /* Bulma primary dark color */;
+}
+
+/* Custom styles to override SweetAlert default styles */
+.toast-background {
+    background-color: #dcf8c6 !important; /* Dark green background color */
+}
+
+.white-text {
+    color: #ffffff !important; /* Set text color to white */
+}
+
+.table-score th, .table-score td {
+	font-size: 13px;
+}
+
+.table-score th {
+	font-size: 15px;
+	padding: 20px;
+}
+
+.table-score td {
+	font-size: 15px;
+	padding: 20px;
+}
+
+@media screen and (max-width: 600px) {
+	.table-score {
+		border: 0;
+	}
+
+	.table-score caption {
+		font-size: 14px;
+	}
+
+	.table-score thead {
+		border: none;
+		clip: rect(0 0 0 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+	}
+
+	.table-score tr {
+		display: block;
+		margin-bottom: 1px;
+	}
+
+	.table-score td {
+		border-bottom: 1px solid #ddd;
+		display: block;
+		font-size: 14px;
+		text-align: right;
+	}
+
+	.table-score td::before {
+		content: attr(data-label);
+		float: left;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	.table-score td:last-child {
+		border-bottom: 0;
+	}
+}
+
+.table-score th {
+	overflow-wrap: break-word;
+}
+
+.table-score table {
+	border-collapse: collapse;
+	border-spacing: 50;
+	overflow-wrap: break-word;
+	border-collapse: collapse;
+	margin: 0.5em 0 2.5em;
+	width: 100%;
+	table-layout: fixed;
+	background-color: #75730433;
+}
+
+.table-score th, td {
+	text-align: left;
+	padding: 10px;
+}
+
+.table-score tr:nth-child(even) {
+	background-color: #07070733;
+}
+
+.table-score td:nth-child(even) {
+	background-color: #beae1733;
+}
+
+.read-random {
+	font-family: 'Fira Code', monospace;
+	font-weight: 700;
+	font-size: 13px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	border-radius: 32px;
+	padding: 10px;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased !important;
+	-moz-font-smoothing: antialiased !important;
+	text-rendering: optimizelegibility !important;
+}
+
+footer {
+	bottom: 0;
+	width: 100%;
+	padding: 10px;
+	text-align: center;
+}
+
+.chat-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.chat-container {
+	width: 95%;
+ /* Adjusted for mobile */
+	max-width: 800px;
+	padding: 20px;
+}
+
+.chat-message {
+	background-color: #dcf8c6;
+	border-radius: 12px;
+	padding: 15px;
+	margin-bottom: 15px;
+}
+
+.outgoing {
+	background-color: #dcf8c6;
+}
+
+.incoming {
+	background-color: #ffffff;
+}
+
+.message-sender {
+	color: #666666;
+	font-size: 0.9rem;
+ /* Adjusted font size for better responsiveness */
+	margin-bottom: 5px;
+}
+
+.message-text {
+	color: #333333;
+	font-size: 1rem;
+ /* Adjusted font size for better responsiveness */
+	word-wrap: break-word;
+}
+
+.message-time {
+	color: #666666;
+	font-size: 0.8rem;
+ /* Adjusted font size for better responsiveness */
+	margin-top: 5px;
+}
+
+@media only screen and (min-width: 601px) {
+	.chat-container {
+		width: 90%;
+ /* Adjusted for larger screens */;
+	}
+}

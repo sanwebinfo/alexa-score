@@ -6,13 +6,20 @@ function showNotification(message, type) {
         toast: true,
         showConfirmButton: false,
         timer: 3000,
+        timerProgressBar: true,
         customClass: {
-            popup: 'custom-toast',
-            icon: 'custom-icon',
-            title: 'custom-title',
-            content: 'custom-content'
-        }
+            popup: 'toast-background',
+            title: 'white-text',
+        },
     });
+}
+
+function getCurrentTimeInKolkata() {
+    const currentDate = new Date();
+    const options = { timeZone: "Asia/Kolkata" };
+    const currentTime = currentDate.toLocaleTimeString("en-US", options);
+
+    return currentTime;
 }
 
 function fetchJSON() {
@@ -31,22 +38,28 @@ function fetchJSON() {
         });
         document.getElementById('refresh-button').style.visibility = "hidden";
         const tableBody = document.getElementById('table-body');
-        tableBody.innerHTML = '';
-        const row = document.createElement('tr');
-        row.innerHTML = `
-                <td colspan="4">No data available - Enter a Valid Match ID</td>
+        tableBody.innerHTML = `
+                <div class="chat-wrapper">
+                <div class="chat-container">
+                <div class="chat-message outgoing">
+                <div class="message-sender">Match Status</div>
+                <div class="message-text">No data available - Enter a Valid Match ID</div>
+                </div>
+                </div>
             `;
-        tableBody.appendChild(row);
         return;
     }
 
     const tableBody = document.getElementById('table-body');
-    tableBody.innerHTML = '';
-    const loadingRow = document.createElement('tr');
-    loadingRow.innerHTML = `
-            <td colspan="4">Loading...</td>
+    tableBody.innerHTML = `
+            <div class="chat-wrapper">
+            <div class="chat-container">
+            <div class="chat-message outgoing">
+            <div class="message-sender">Match Status</div>
+            <div class="message-text">Loading....</div>
+            </div>
+            </div>
         `;
-    tableBody.appendChild(loadingRow);
 
     fetch(`/api/score?id=${id}`)
         .then(response => {
@@ -68,33 +81,53 @@ function fetchJSON() {
 
 function updateTable(data) {
     const tableBody = document.getElementById('table-body');
+    const kolkataTime = getCurrentTimeInKolkata();
     tableBody.innerHTML = '';
-    const row = document.createElement('tr');
     if (!data || Object.keys(data).length === 0 || data.livescore === "Data Not Found") {
         document.getElementById('refresh-button').style.visibility = "hidden";
-        row.innerHTML = `
-                <td colspan="4">${data.update || 'No data available'}</td>
+        tableBody.innerHTML = `
+                <div class="chat-wrapper">
+                <div class="chat-container">
+                <div class="chat-message outgoing">
+                <div class="message-sender">Match Status</div>
+                <div class="message-text">${data.update || 'No data available'}</div>
+                </div>
+                </div>
             `;
-        tableBody.appendChild(row);
     } else {
         tableBody.innerHTML = `
-                <th>Match</th>
-                <td>${data.title || '-'}</td>
-                </tr>
-                <tr>
-                <th>Score</th>
-                <td>${data.livescore || '-'}</td>
-                </tr>
-                <tr>
-                <th>Run Rate</th>
-                <td>${data.runrate || '-'}</td>
-                </tr>
-                <tr>
-                <th>Status</th>
-                <td>${data.update || '-'}</td>
-                </tr>
+        
+        <div class="chat-wrapper">
+        <div class="chat-container">
+
+        <div class="chat-message outgoing">
+        <div class="message-sender">Match</div>
+        <div class="message-text">${data.title || '-'}</div>
+        </div>
+
+        <div class="chat-message incoming">
+        <div class="message-sender">Score</div>
+        <div class="message-text">${data.livescore || '-'}</div>
+        </div>
+
+        <div class="chat-message outgoing">
+        <div class="message-sender">Run Rate</div>
+        <div class="message-text">${data.runrate || '-'}</div>
+        </div>
+
+        <div class="chat-message incoming">
+        <div class="message-sender">Status</div>
+        <div class="message-text">${data.update || '-'}</div>
+        </div>
+
+        <div class="chat-message incoming">
+        <div class="message-sender">Updated on</div>
+        <div class="message-text">${kolkataTime}</div>
+        </div>
+
+      </div>
+      </div>
             `;
-        //tableBody.appendChild(row);
     }
 }
 
