@@ -32,24 +32,27 @@ table {
 	display: block;
 	margin: 20px auto;
 	background-color: #00D1B2;
- /* Bulma primary color */
 	color: white;
 }
 
 .refresh-button:hover {
 	background-color: #00876D;
- /* Bulma primary dark color */;
 }
-
-/* Custom styles to override SweetAlert default styles */
+.swal2-popup.swal2-toast {
+    padding: .5em 1em !important;
+    display: flex !important;
+    width: auto !important;
+}
+.swal2-popup.swal2-toast .swal2-title {
+    margin: .75em .25em !important;
+}
 .toast-background {
-    background-color: #dcf8c6 !important; /* Dark green background color */
+    background-color: #dcf8c6 !important;
 }
 
 .white-text {
-    color: #ffffff !important; /* Set text color to white */
+    color: #201b1b !important;
 }
-
 .table-score th, .table-score td {
 	font-size: 13px;
 }
@@ -164,7 +167,6 @@ footer {
 
 .chat-container {
 	width: 95%;
- /* Adjusted for mobile */
 	max-width: 800px;
 	padding: 20px;
 }
@@ -187,27 +189,23 @@ footer {
 .message-sender {
 	color: #666666;
 	font-size: 0.9rem;
- /* Adjusted font size for better responsiveness */
 	margin-bottom: 5px;
 }
 
 .message-text {
 	color: #333333;
 	font-size: 1rem;
- /* Adjusted font size for better responsiveness */
 	word-wrap: break-word;
 }
 
 .message-time {
 	color: #666666;
 	font-size: 0.8rem;
- /* Adjusted font size for better responsiveness */
 	margin-top: 5px;
 }
 
 @media only screen and (min-width: 601px) {
 	.chat-container {
 		width: 90%;
- /* Adjusted for larger screens */;
 	}
 }

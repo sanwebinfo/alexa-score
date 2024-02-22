@@ -1,12 +1,16 @@
 function showNotification(message, type) {
     Swal.fire({
-        text: message,
+        title: message,
         icon: type,
-        position: 'top',
+        position: 'bottom',
         toast: true,
         showConfirmButton: false,
         timer: 3000,
         timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          },
         customClass: {
             popup: 'toast-background',
             title: 'white-text',
@@ -90,7 +94,7 @@ function updateTable(data) {
                 <div class="chat-container">
                 <div class="chat-message outgoing">
                 <div class="message-sender">Match Status</div>
-                <div class="message-text">${data.update || 'No data available'}</div>
+                <div class="message-text"><br><p>${data.title || 'No data available'}</p><p>${data.update || 'No data available'}</p></div>
                 </div>
                 </div>
             `;
@@ -116,11 +120,21 @@ function updateTable(data) {
         </div>
 
         <div class="chat-message incoming">
+        <div class="message-sender">Batsman</div>
+        <div class="message-text">${data.batterone || '-'}: ${data.batsmanonerun || '-'}${data.batsmanoneball || '-'}</div>
+        </div>
+
+        <div class="chat-message outgoing">
+        <div class="message-sender">Bowler</div>
+        <div class="message-text">${data.bowlerone || '-'}: Overs: ${data.bowleroneover || '-'} - Runs: ${data.bowleronerun || '-'} - Wickets: ${data.bowleronewickers || '-'}</div>
+        </div>
+
+        <div class="chat-message incoming">
         <div class="message-sender">Status</div>
         <div class="message-text">${data.update || '-'}</div>
         </div>
 
-        <div class="chat-message incoming">
+        <div class="chat-message outgoing">
         <div class="message-sender">Updated on</div>
         <div class="message-text">${kolkataTime}</div>
         </div>
