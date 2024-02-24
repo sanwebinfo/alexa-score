@@ -30,7 +30,7 @@ INFO_EMOJI="ℹ️"
 # Function to get token
 get_token() {
     token_url="$API_URL/token"
-    api_key=$API
+    api_key=$API_KEY
 
     # Requesting token and checking HTTP status code
     http_code=$(curl --silent --output /dev/null -w "%{http_code}" -X GET "$token_url" -H "x-api-key: $api_key")
@@ -73,7 +73,7 @@ make_api_request() {
     
     # Prompt user for data with validation
     while true; do
-        read -p "Enter data (2-500 characters): " data
+        read -p "Enter Message (2-500 characters): " data
         validate_input "$data" && break
     done
 
@@ -86,7 +86,7 @@ make_api_request() {
 
     if [[ $? -eq 0 ]]; then
         echo -e "\n${GREEN}${SUCCESS_EMOJI} Success:${NC} API request successful.\n"
-        echo -e "${GREEN}${INFO_EMOJI}  Alexa Message:${NC} $alexa_message\n"
+        echo -e "${GREEN}${INFO_EMOJI} Message:${NC} $alexa_message\n"
     else
         echo -e "\n${RED}${ERROR_EMOJI} Error:${NC} Failed to make API request. Please try again later.\n"
     fi

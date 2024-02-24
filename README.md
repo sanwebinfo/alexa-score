@@ -55,6 +55,19 @@ USERNAME=exampleuser
 ```
 
 - Home page: `/view/home.hbs` for displaying the Live Cricket Score
+- Bash script to send message to the clients
+
+```sh
+
+#.env example
+API_URL=https://example.com/api
+API_KEY=YOUR_AUTH_KEY
+
+
+chmod a+x send.sh
+./send.sh
+
+```
 
 ## Much Needed Apps
 
