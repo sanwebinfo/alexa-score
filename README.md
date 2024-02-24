@@ -54,7 +54,7 @@ USERID=123456
 USERNAME=exampleuser
 ```
 
-- Home page: `index.html` for displaying the Live Cricket Score
+- Home page: `/view/home.hbs` for displaying the Live Cricket Score
 
 ## Much Needed Apps
 
