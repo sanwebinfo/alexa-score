@@ -1,0 +1,6 @@
+{
+  "lock": false,
+  "tasks": {
+    "send": "deno run --allow-net --allow-read cli.ts --config=config.json"
+  }
+}
