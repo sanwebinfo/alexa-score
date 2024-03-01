@@ -1,5 +1,7 @@
 # Alexa Cricket Score
 
+![connect-test](https://github.com/sanwebinfo/alexa-score/workflows/connect-test/badge.svg)  
+
 A Simple Static Site With WebSocket for Getting Real-time Live Cricket Score Updates.  
 
 > Get live Cricket Score Update by reloading the web page using Websocket and Alexa.  
