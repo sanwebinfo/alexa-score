@@ -34,7 +34,7 @@
     "ws": "^8.18.2"
   },
   "devDependencies": {
-    "mocha": "^11.7.0",
+    "mocha": "^11.7.1",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.1"
   }
