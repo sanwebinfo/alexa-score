@@ -27,7 +27,7 @@
   "dependencies": {
     "axios": "^1.14.0",
     "dotenv": "^16.6.1",
-    "ejs": "^3.1.10",
+    "ejs": "^5.0.1",
     "express": "^4.22.1",
     "express-validator": "^7.3.2",
     "jsonwebtoken": "^9.0.3",
